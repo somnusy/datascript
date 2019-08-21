@@ -71,7 +71,7 @@ public interface GroupMapper {
             + "(SELECT id FROM group_members LIMIT 0, 1) LIMIT 1000) g "
             + " left join users u on g.user_id = u.id left join user_profile up on g.user_id = up.user_id")*/
 
-    @Select("select "
+    @Select("select DISTINCT "
             + "g.nickname as nickname,g.user_id as user_id,g.group_id as group_id, g.role as role,"
             + "g.dont_disturb as dont_disturb,g.deleted_at as deleted_at,g.created_at as created_at,"
             + "g.updated_at as updated_at,g.mute as mute,u.account as account,n.source_user_id as invitedUserId,"
@@ -80,7 +80,8 @@ public interface GroupMapper {
             + " left join users u on g.user_id = u.id "
             + " left join new_friends n on g.user_id = n.join_user_id and g.group_id = n.group_id "
             + " left join user_profile up on n.source_user_id = up.user_id "
-            + " left join user_profile up1 on g.user_id = up1.user_id"
+            + " left join user_profile up1 on g.user_id = up1.user_id "
+            + " where g.deleted_at is null "
             + " limit #{start},#{count}")
     @Results({
             @Result(column = "nickname", property = "nickname", jdbcType = JdbcType.VARCHAR),

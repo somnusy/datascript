@@ -17,6 +17,7 @@ import org.springframework.util.StopWatch;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -138,6 +139,17 @@ public class GroupServiceImpl implements IGroupsService, CommandLineRunner {
             StopWatch watch = new StopWatch();
             watch.start();
             List<GroupMembersDo> groupMembersDos = GroupServiceImpl.this.selectGroupMembers(start, count);
+            //去重
+            List<String> tmp = new LinkedList<>();
+            groupMembersDos = groupMembersDos.stream().filter(i->{
+                String concat = i.getUserId()+"-"+i.getGroupId();
+                if(tmp.contains(concat)){
+                    return false;
+                }else{
+                    tmp.add(concat);
+                    return true;
+                }
+            }).collect(Collectors.toList());
             watch.stop();
             log.info("批量导groupMembers数据库查询结束,执行到index={{}},查询执行时间{{}},目前总耗时{{}}",
                     start, watch.getLastTaskTimeMillis(), (System.currentTimeMillis() - begin) / 1000);
