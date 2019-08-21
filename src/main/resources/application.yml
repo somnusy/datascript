@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    url: jdbc:mysql://47.52.255.159:3306/lexin?autoReconnect=true&characterEncoding=UTF-8&useUnicode=true
+#    url: jdbc:mysql://127.0.0.1:3306/lexin?autoReconnect=true&characterEncoding=UTF-8&useUnicode=true
+    username: root
+    password: UB?a4!:cWZTL
+#    url: jdbc:mysql://10.13.1.3:3306/lexin?autoReconnect=true&characterEncoding=UTF-8&useUnicode=true
+#    username: lexin
+#    password: 0f3a9be2-850f-11e8-bf63-57d9d863e2d5
+
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    sql-script-encoding: UTF-8
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017/demo
+#      uri: mongodb://47.52.255.159:28018/tmp
+#      uri: mongodb://127.0.0.1:28018/tmp
+#      uri: mongodb://10.148.0.85:28018/lexin_server_tmp
+#      username: lexin
+#      password: d7c31b92bc73
+
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+server:
+  port: 8081
+datascript:
+  worker:
+    core-size: 10
+    max-size: 10
+#logging:
+#  level:
+#    com.rynk.datascript.mysql.dao: DEBUG
+
+
