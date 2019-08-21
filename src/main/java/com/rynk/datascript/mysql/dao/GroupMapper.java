@@ -107,7 +107,8 @@ public interface GroupMapper {
             + " left join users u on g.user_id = u.id "
             + " left join new_friends n on g.user_id = n.join_user_id and g.group_id = n.group_id "
             + " left join user_profile up on n.source_user_id = up.user_id "
-            + " left join user_profile up1 on g.user_id = up1.user_id")
+            + " left join user_profile up1 on g.user_id = up1.user_id "
+            + "  where g.deleted_at is null ")
     int countGroupMember();
 
 
