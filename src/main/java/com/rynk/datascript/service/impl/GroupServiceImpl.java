@@ -19,6 +19,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -43,6 +44,9 @@ public class GroupServiceImpl implements IGroupsService, CommandLineRunner {
 
 
     private AtomicInteger dataSequence = new AtomicInteger(0);
+
+
+    private static List<String> tmp = new CopyOnWriteArrayList<>();
 
 
 
@@ -140,7 +144,7 @@ public class GroupServiceImpl implements IGroupsService, CommandLineRunner {
             watch.start();
             List<GroupMembersDo> groupMembersDos = GroupServiceImpl.this.selectGroupMembers(start, count);
             //去重
-            List<String> tmp = new LinkedList<>();
+//            List<String> tmp = new LinkedList<>();
             groupMembersDos = groupMembersDos.stream().filter(i->{
                 String concat = i.getUserId()+"-"+i.getGroupId();
                 if(tmp.contains(concat)){

@@ -16,8 +16,15 @@ import java.util.List;
 public interface GroupMapper {
 
 
-    @Select("select * from groups g left join users u on g.user_id = u.id left join "
-            + "user_profile up on g.user_id = up.user_id where g.deleted_at is null")
+    @Select("select "
+            + "g.id as id,g.name as name,g.bulletin as bulletin,gm.user_id as user_id,g.member_count as member_count, "
+            + "g.max_member_count as max_member_count,g.review as review,g.lvl as lvl,g.lvl_expires_at as lvl_expires_at, "
+            + "g.deleted_at as deleted_at,g.created_at as created_at,g.updated_at as updated_at,g.portrait as portrait, "
+            + "g.mute as mute,u.account as account,up.nickname as nickname "
+            + "from groups g "
+            + "left join group_members gm on g.id=gm.group_id and gm.role = 1  "
+            + "left join users u on gm.user_id = u.id left join "
+            + "user_profile up on gm.user_id = up.user_id where g.deleted_at is null ")
     @Results({
             @Result(column="id", property="groupId", jdbcType= JdbcType.INTEGER, id=true),
             @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
